@@ -1,0 +1,125 @@
+﻿@model IEnumerable<FooDo2.Models.order>
+@{
+    Layout = "~/Views/Shared/orderLayout.cshtml";
+}
+
+
+
+
+<script src="~/Scripts/bootstrap-datepicker.min.js"></script>
+<script src="~/Scripts/bootstrap-datepicker.js"></script>
+<link href="~/Scripts/daterangepicker.css" rel="stylesheet" />
+<script src="~/Scripts/daterangepicker.js"></script>
+
+
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+<link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
+
+
+<script>
+    $(document).ready(function () {
+        var date_input = $('input[name="start"]'); //our date input has the name "date"
+        var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
+        var options = {
+            format: 'mm/dd/yyyy',
+            container: container,
+            todayHighlight: true,
+            autoclose: true,
+        };
+        date_input.datepicker(options);
+    })
+
+
+
+    $(document).ready(function () {
+        var date_input = $('input[name="end"]'); //our date input has the name "date"
+        var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
+        var options = {
+            format: 'mm/dd/yyyy',
+            container: container,
+            todayHighlight: true,
+            autoclose: true,
+        };
+        date_input.datepicker(options);
+    })
+</script>
+
+<form>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="date1"> Opened</label>
+            <input class="form-control" id="date1" name="start" value=@ViewBag.open type="text" autocomplete="off" aria-describedby="emailHelp" />
+        </div>
+        <div class="form-group col-md-6">
+            <label for="date2"> Closed</label>
+            <input class="form-control" id="date2" name="end" value=@ViewBag.close type="text" autocomplete="off" aria-describedby="emailHelp" />
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-1">
+            <button type="submit" class="btn btn-primary">Filter</button>
+        </div>
+        <div class="form-group col-md-11">
+            
+        </div>
+    </div>
+</form>
+<br>
+
+    <table class="table" id="my-table">
+        <tr>
+            <th>
+                @Html.ActionLink("ID", "Index", new { sortOrder = ViewBag.NameSortParm })
+            </th>
+            <th>
+                @Html.ActionLink("Date (opened)", "Index", new { sortOrder = ViewBag.DateSortParm })
+            </th>
+            <th>
+                Creator
+            </th>
+            <th>
+                Table
+            </th>
+            <th>
+                Total price
+            </th>
+
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.timeOpen)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.user.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.idTable)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.totalPrice) €
+                </td>
+
+                <td>
+                    @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                </td>
+            </tr>
+        }
+
+    </table>
+
+
+    <div>
+        @Html.ActionLink("Back", "Index", "Configuration")
+    </div>

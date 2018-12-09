@@ -1,0 +1,65 @@
+﻿@model IEnumerable<FooDo.Models.order>
+@{
+    Layout = "~/Views/Shared/orderLayout.cshtml";
+}
+
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.ActionLink("Last Name", "Index", new { sortOrder = ViewBag.NameSortParm })
+            </th>
+            <th>
+                @Html.ActionLink("Date (opened)", "Index", new { sortOrder = ViewBag.DateSortParm })
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.timeClose)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.details)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.user.name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.user1.name)
+            </th>
+            <th></th>
+        </tr>
+
+
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.idTable)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.timeOpen)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.timeClose)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.details)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.user.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.user1.name)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                    @Html.ActionLink("AddFood", "AddFood", new { id = item.ID })
+
+                </td>
+            </tr>
+        }
+
+    </table>

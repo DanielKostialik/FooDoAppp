@@ -1,0 +1,41 @@
+﻿@model FooDo2.Models.user
+@{
+    Layout = "~/Views/Shared/mainLayout.cshtml";
+}
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div>
+        <h1>Configuration</h1>
+    </div>
+
+    <div class="container-fluid" style="width:80%; margin-top:100px; background-color:dimgray;  opacity: 0.9;">
+        <div class="row justify-content-around">
+
+            <a href="@Url.Action("Index","EditUsers")">
+                <div class="col-sm-3" style="background-color:lavender; height:250px; text-align:center; padding-top:80px; "> <h1>Users </h1></div>
+            </a>
+
+            <a href="@Url.Action("Index","OrderFood")">
+                <div class="col-sm-3" style="background-color:lavender; height:250px; text-align:center; padding-top:80px; "> <h1> Orders </h1></div>
+            </a>
+
+            <a href="@Url.Action("Index","Food")">
+                <div class="col-sm-3" style="background-color:lavender; height:250px; text-align:center; padding-top:80px; "> <h1>Food </h1></div>
+            </a>
+            <a href="@Url.Action("Index","Configuration")">
+                <div class="col-sm-3" style="background-color:lavender; height:250px; text-align:center; padding-top:80px; "> <h1>Restaurant </h1></div>
+            </a>
+        </div>
+    </div>
+
+
+</body>
+</html>

@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="FooDoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="food">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="details" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="img" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="price" Type="Double" />
+    <NavigationProperty Name="orderFoods" Relationship="Self.FK_OrderFood_food" FromRole="food" ToRole="orderFood" />
+  </EntityType>
+  <EntityType Name="orderFood">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="idOrder" Type="Int32" Nullable="false" />
+    <Property Name="idFood" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="food" Relationship="Self.FK_OrderFood_food" FromRole="orderFood" ToRole="food" />
+    <NavigationProperty Name="order" Relationship="Self.FK_OrderFood_orders" FromRole="orderFood" ToRole="orders" />
+  </EntityType>
+  <EntityType Name="order">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="idTable" Type="Int32" />
+    <Property Name="idUserOpen" Type="Int32" Nullable="false" />
+    <Property Name="idUserClose" Type="Int32" />
+    <Property Name="timeOpen" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="timeClose" Type="DateTime" Precision="0" />
+    <Property Name="details" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="totalPrice" Type="Double" />
+    <NavigationProperty Name="orderFoods" Relationship="Self.FK_OrderFood_orders" FromRole="orders" ToRole="orderFood" />
+    <NavigationProperty Name="user" Relationship="Self.FK_orders_users" FromRole="orders" ToRole="users" />
+    <NavigationProperty Name="user1" Relationship="Self.FK_orders_users1" FromRole="orders" ToRole="users" />
+  </EntityType>
+  <EntityType Name="table">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="positionX" Type="Int32" Nullable="false" />
+    <Property Name="positionY" Type="Int32" Nullable="false" />
+    <Property Name="number" Type="Int32" Nullable="false" />
+    <Property Name="size" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="user">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="surname" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="login" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="password" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="manager" Type="Int32" />
+    <NavigationProperty Name="orders" Relationship="Self.FK_orders_users" FromRole="users" ToRole="orders" />
+    <NavigationProperty Name="orders1" Relationship="Self.FK_orders_users1" FromRole="users" ToRole="orders" />
+  </EntityType>
+  <Association Name="FK_OrderFood_food">
+    <End Role="food" Type="Self.food" Multiplicity="1" />
+    <End Role="orderFood" Type="Self.orderFood" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="food">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="orderFood">
+        <PropertyRef Name="idFood" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderFood_orders">
+    <End Role="orders" Type="Self.order" Multiplicity="1" />
+    <End Role="orderFood" Type="Self.orderFood" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="orders">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="orderFood">
+        <PropertyRef Name="idOrder" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_orders_users">
+    <End Role="users" Type="Self.user" Multiplicity="1" />
+    <End Role="orders" Type="Self.order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="orders">
+        <PropertyRef Name="idUserOpen" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_orders_users1">
+    <End Role="users" Type="Self.user" Multiplicity="0..1" />
+    <End Role="orders" Type="Self.order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="orders">
+        <PropertyRef Name="idUserClose" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="QFoodDBEntitiesFooDo" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="foods" EntityType="Self.food" />
+    <EntitySet Name="orderFoods" EntityType="Self.orderFood" />
+    <EntitySet Name="orders" EntityType="Self.order" />
+    <EntitySet Name="tables" EntityType="Self.table" />
+    <EntitySet Name="users" EntityType="Self.user" />
+    <AssociationSet Name="FK_OrderFood_food" Association="Self.FK_OrderFood_food">
+      <End Role="food" EntitySet="foods" />
+      <End Role="orderFood" EntitySet="orderFoods" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderFood_orders" Association="Self.FK_OrderFood_orders">
+      <End Role="orders" EntitySet="orders" />
+      <End Role="orderFood" EntitySet="orderFoods" />
+    </AssociationSet>
+    <AssociationSet Name="FK_orders_users" Association="Self.FK_orders_users">
+      <End Role="users" EntitySet="users" />
+      <End Role="orders" EntitySet="orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_orders_users1" Association="Self.FK_orders_users1">
+      <End Role="users" EntitySet="users" />
+      <End Role="orders" EntitySet="orders" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

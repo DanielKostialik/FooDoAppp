@@ -1,0 +1,33 @@
+﻿@model FooDo2.Models.user
+@{
+    Layout = "~/Views/Shared/mainLayout.cshtml";
+
+    if(Session["userManager"] != null) { 
+        if ((int)Session["userManager"] == 0)
+        {
+            Response.Redirect("~/Home/Index");
+        }
+    }
+
+}
+
+
+<div class="container-fluid" style="width:60%; margin-top:200px;">
+    <div class="row">
+        <a href="@Url.Action("Index","Tables")">
+            <div class="col-sm-5" style="background-color:lavender; height:250px; text-align:center; padding-top:80px"> <h1>Tables </h1></div>
+        </a>
+            <div class="col-sm-2"></div>
+        <a href="@Url.Action("Index","Configuration")">
+            <div class="col-sm-5" style="background-color:lavender; height:250px; text-align:center; padding-top:80px"> <h1>Configuration </h1></div>
+        </a>
+
+    </div>
+</div>
+
+
+
+  
+
+
+

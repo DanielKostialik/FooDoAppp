@@ -1,0 +1,43 @@
+﻿@{
+    if (Session["userID"] == null)
+    {
+        Response.Redirect("~/Login/Index");
+    }
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+    <link rel="stylesheet" href="~/Scripts/bootstrap.min.css" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+<body style=" background-image: url('../../Images/FooDo_background.jpg');  ">
+
+
+    <nav class="navbar navbar-inverse">
+       <a class="navbar-brand" href="@Url.Action("IndexManager","Home")"> FooDo </a>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav  navbar-nav navbar-right">
+                
+                <a class="navbar-brand" href="@Url.Action("LogOut","Login")"> LogOut </a>
+
+            </div>
+        </div>
+    </nav>
+
+
+
+
+
+    @RenderBody()
+
+</body>
+</html>

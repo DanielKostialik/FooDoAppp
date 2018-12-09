@@ -1,0 +1,45 @@
+﻿@model IEnumerable<FooDo2.Models.food>
+@{
+    Layout = "~/Views/Shared/orderLayout.cshtml";
+}
+<a href="@Url.Action("Index","Configuration")">  <button type="button" class="btn btn-primary"> Back </button> </a>
+<br><br>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.details)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.price)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.details)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.price) €
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    }
+
+</table>

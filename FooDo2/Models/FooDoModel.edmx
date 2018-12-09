@@ -1,0 +1,353 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="FooDoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="food">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="details" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="img" Type="image" />
+          <Property Name="price" Type="float" />
+        </EntityType>
+        <EntityType Name="orderFood">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idOrder" Type="int" Nullable="false" />
+          <Property Name="idFood" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="orders">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idTable" Type="int" />
+          <Property Name="idUserOpen" Type="int" Nullable="false" />
+          <Property Name="idUserClose" Type="int" />
+          <Property Name="timeOpen" Type="date" Nullable="false" />
+          <Property Name="timeClose" Type="date" />
+          <Property Name="details" Type="varchar" MaxLength="50" />
+          <Property Name="totalPrice" Type="float" />
+        </EntityType>
+        <EntityType Name="tables">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="positionX" Type="int" Nullable="false" />
+          <Property Name="positionY" Type="int" Nullable="false" />
+          <Property Name="number" Type="int" Nullable="false" />
+          <Property Name="size" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nchar" MaxLength="10" />
+          <Property Name="surname" Type="nchar" MaxLength="10" />
+          <Property Name="login" Type="nchar" MaxLength="10" />
+          <Property Name="password" Type="nchar" MaxLength="10" />
+          <Property Name="manager" Type="int" />
+        </EntityType>
+        <Association Name="FK_OrderFood_food">
+          <End Role="food" Type="Self.food" Multiplicity="1" />
+          <End Role="orderFood" Type="Self.orderFood" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="food">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="orderFood">
+              <PropertyRef Name="idFood" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderFood_orders">
+          <End Role="orders" Type="Self.orders" Multiplicity="1" />
+          <End Role="orderFood" Type="Self.orderFood" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="orders">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="orderFood">
+              <PropertyRef Name="idOrder" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_orders_users">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="orders" Type="Self.orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="orders">
+              <PropertyRef Name="idUserOpen" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_orders_users1">
+          <End Role="users" Type="Self.users" Multiplicity="0..1" />
+          <End Role="orders" Type="Self.orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="orders">
+              <PropertyRef Name="idUserClose" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="FooDoModelStoreContainer">
+          <EntitySet Name="food" EntityType="Self.food" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="orderFood" EntityType="Self.orderFood" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="orders" EntityType="Self.orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tables" EntityType="Self.tables" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_OrderFood_food" Association="Self.FK_OrderFood_food">
+            <End Role="food" EntitySet="food" />
+            <End Role="orderFood" EntitySet="orderFood" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderFood_orders" Association="Self.FK_OrderFood_orders">
+            <End Role="orders" EntitySet="orders" />
+            <End Role="orderFood" EntitySet="orderFood" />
+          </AssociationSet>
+          <AssociationSet Name="FK_orders_users" Association="Self.FK_orders_users">
+            <End Role="users" EntitySet="users" />
+            <End Role="orders" EntitySet="orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_orders_users1" Association="Self.FK_orders_users1">
+            <End Role="users" EntitySet="users" />
+            <End Role="orders" EntitySet="orders" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FooDoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="food">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="details" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="img" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="price" Type="Double" />
+          <NavigationProperty Name="orderFoods" Relationship="Self.FK_OrderFood_food" FromRole="food" ToRole="orderFood" />
+        </EntityType>
+        <EntityType Name="orderFood">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idOrder" Type="Int32" Nullable="false" />
+          <Property Name="idFood" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="food" Relationship="Self.FK_OrderFood_food" FromRole="orderFood" ToRole="food" />
+          <NavigationProperty Name="order" Relationship="Self.FK_OrderFood_orders" FromRole="orderFood" ToRole="orders" />
+        </EntityType>
+        <EntityType Name="order">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idTable" Type="Int32" />
+          <Property Name="idUserOpen" Type="Int32" Nullable="false" />
+          <Property Name="idUserClose" Type="Int32" />
+          <Property Name="timeOpen" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="timeClose" Type="DateTime" Precision="0" />
+          <Property Name="details" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="totalPrice" Type="Double" />
+          <NavigationProperty Name="orderFoods" Relationship="Self.FK_OrderFood_orders" FromRole="orders" ToRole="orderFood" />
+          <NavigationProperty Name="user" Relationship="Self.FK_orders_users" FromRole="orders" ToRole="users" />
+          <NavigationProperty Name="user1" Relationship="Self.FK_orders_users1" FromRole="orders" ToRole="users" />
+        </EntityType>
+        <EntityType Name="table">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="positionX" Type="Int32" Nullable="false" />
+          <Property Name="positionY" Type="Int32" Nullable="false" />
+          <Property Name="number" Type="Int32" Nullable="false" />
+          <Property Name="size" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="surname" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="login" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="password" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="manager" Type="Int32" />
+          <NavigationProperty Name="orders" Relationship="Self.FK_orders_users" FromRole="users" ToRole="orders" />
+          <NavigationProperty Name="orders1" Relationship="Self.FK_orders_users1" FromRole="users" ToRole="orders" />
+        </EntityType>
+        <Association Name="FK_OrderFood_food">
+          <End Role="food" Type="Self.food" Multiplicity="1" />
+          <End Role="orderFood" Type="Self.orderFood" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="food">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="orderFood">
+              <PropertyRef Name="idFood" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderFood_orders">
+          <End Role="orders" Type="Self.order" Multiplicity="1" />
+          <End Role="orderFood" Type="Self.orderFood" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="orders">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="orderFood">
+              <PropertyRef Name="idOrder" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_orders_users">
+          <End Role="users" Type="Self.user" Multiplicity="1" />
+          <End Role="orders" Type="Self.order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="orders">
+              <PropertyRef Name="idUserOpen" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_orders_users1">
+          <End Role="users" Type="Self.user" Multiplicity="0..1" />
+          <End Role="orders" Type="Self.order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="orders">
+              <PropertyRef Name="idUserClose" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="QFoodDBEntitiesFooDo" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="foods" EntityType="Self.food" />
+          <EntitySet Name="orderFoods" EntityType="Self.orderFood" />
+          <EntitySet Name="orders" EntityType="Self.order" />
+          <EntitySet Name="tables" EntityType="Self.table" />
+          <EntitySet Name="users" EntityType="Self.user" />
+          <AssociationSet Name="FK_OrderFood_food" Association="Self.FK_OrderFood_food">
+            <End Role="food" EntitySet="foods" />
+            <End Role="orderFood" EntitySet="orderFoods" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderFood_orders" Association="Self.FK_OrderFood_orders">
+            <End Role="orders" EntitySet="orders" />
+            <End Role="orderFood" EntitySet="orderFoods" />
+          </AssociationSet>
+          <AssociationSet Name="FK_orders_users" Association="Self.FK_orders_users">
+            <End Role="users" EntitySet="users" />
+            <End Role="orders" EntitySet="orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_orders_users1" Association="Self.FK_orders_users1">
+            <End Role="users" EntitySet="users" />
+            <End Role="orders" EntitySet="orders" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="FooDoModelStoreContainer" CdmEntityContainer="QFoodDBEntitiesFooDo">
+          <EntitySetMapping Name="foods">
+            <EntityTypeMapping TypeName="FooDoModel.food">
+              <MappingFragment StoreEntitySet="food">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="details" ColumnName="details" />
+                <ScalarProperty Name="img" ColumnName="img" />
+                <ScalarProperty Name="price" ColumnName="price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="orderFoods">
+            <EntityTypeMapping TypeName="FooDoModel.orderFood">
+              <MappingFragment StoreEntitySet="orderFood">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="idOrder" ColumnName="idOrder" />
+                <ScalarProperty Name="idFood" ColumnName="idFood" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="orders">
+            <EntityTypeMapping TypeName="FooDoModel.order">
+              <MappingFragment StoreEntitySet="orders">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="idTable" ColumnName="idTable" />
+                <ScalarProperty Name="idUserOpen" ColumnName="idUserOpen" />
+                <ScalarProperty Name="idUserClose" ColumnName="idUserClose" />
+                <ScalarProperty Name="timeOpen" ColumnName="timeOpen" />
+                <ScalarProperty Name="timeClose" ColumnName="timeClose" />
+                <ScalarProperty Name="details" ColumnName="details" />
+                <ScalarProperty Name="totalPrice" ColumnName="totalPrice" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tables">
+            <EntityTypeMapping TypeName="FooDoModel.table">
+              <MappingFragment StoreEntitySet="tables">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="positionX" ColumnName="positionX" />
+                <ScalarProperty Name="positionY" ColumnName="positionY" />
+                <ScalarProperty Name="number" ColumnName="number" />
+                <ScalarProperty Name="size" ColumnName="size" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="FooDoModel.user">
+              <MappingFragment StoreEntitySet="users">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="surname" ColumnName="surname" />
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="manager" ColumnName="manager" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
