@@ -4,34 +4,41 @@
     Layout = "~/Views/Shared/tableLayout.cshtml";
 }
 
-<style>
-
-    .draggable {
-        width: 150px;
-        height: 150px;
-        padding: 0.5em;
-        position: absolute;
-        width: 200px;
-        height: 100px;
-        border: 3px solid #73AD21;
+<div class="relative">
+    @foreach (var item in Model)
+    {
+        <a onmouseup="SavePositions(@Html.DisplayFor(modelItem => item.ID))" id="@Html.DisplayFor(modelItem => item.ID)"  class="draggable" style="left: @Html.DisplayFor(modelItem => item.positionX)px; top: @Html.DisplayFor(modelItem => item.positionY)px" href="@Url.Action("Details", "Tables", new { id = item.ID })"> N. @item.number <br> size: @item.size </a>;
     }
+</div>
 
-</style>
+<button onclick="SavePositions()"> Save </button>
 
 <script>
     $(function () {
         $(".draggable").draggable();
     });
 
+    function SavePositions(id) {
 
+        var x = document.getElementsByClassName("draggable");
+        var offsets = document.getElementById(id).getBoundingClientRect();
+        var top = offsets.top;
+        var left = offsets.left;
+        $.post("/Tables/EditPosition", { id: id, x: left, y: top }, function (data) {});
+
+        /*
+        for (i = 0; i < x.length; i++) {
+            id = x[i].id
+            var offsets = document.getElementById(id).getBoundingClientRect();
+            var top = offsets.top;
+            var left = offsets.left;
+            $.post("/Tables/EditPosition", {id:id}, function (data) {
+            });
+        }*/
+    }
 
 </script>
 
 
 
-<div class="relative">
-    @foreach (var item in Model)
-    {
-        <a class="draggable" style="left: @Html.DisplayFor(modelItem => item.positionX)px; top: @Html.DisplayFor(modelItem => item.positionY)px" href="@Url.Action("Details", "Tables", new { id = item.ID })"> N. @item.number <br> size: @item.size </a>;
-    }
-</div>
+

@@ -58,6 +58,19 @@ namespace FooDo2.Controllers
             return View(table);
         }
 
+        public ActionResult EditPosition(int id, int x , int y)
+        {
+  
+            table tableEdit = db.tables.Find(id);
+            tableEdit.positionX = x;
+            tableEdit.positionY = y;
+       
+            db.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
+
         // GET: tables/Edit/5
         public ActionResult Edit(int? id)
         {
