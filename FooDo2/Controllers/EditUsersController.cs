@@ -58,7 +58,6 @@ namespace FooDo.Controllers
                     ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
                 }
             }
-
             return RedirectToAction("Index", "EditUsers");
         }
 
@@ -82,7 +81,6 @@ namespace FooDo.Controllers
         {
             return View();
         }
-
 
         [HttpPost]
         public ActionResult AddSubmit(user userM)
