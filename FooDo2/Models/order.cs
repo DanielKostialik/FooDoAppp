@@ -21,7 +21,7 @@ namespace FooDo2.Models
         }
     
         public int ID { get; set; }
-        public Nullable<int> idTable { get; set; }
+        public int idTable { get; set; }
         public int idUserOpen { get; set; }
         public Nullable<int> idUserClose { get; set; }
         public System.DateTime timeOpen { get; set; }
@@ -33,5 +33,6 @@ namespace FooDo2.Models
         public virtual ICollection<orderFood> orderFoods { get; set; }
         public virtual user user { get; set; }
         public virtual user user1 { get; set; }
+        public virtual table table { get; set; }
     }
 }

@@ -14,10 +14,19 @@ namespace FooDo2.Models
     
     public partial class table
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public table()
+        {
+            this.orders = new HashSet<order>();
+        }
+    
         public int ID { get; set; }
         public int positionX { get; set; }
         public int positionY { get; set; }
         public int number { get; set; }
         public int size { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<order> orders { get; set; }
     }
 }
