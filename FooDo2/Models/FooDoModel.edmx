@@ -45,6 +45,7 @@
           <Property Name="positionY" Type="int" Nullable="false" />
           <Property Name="number" Type="int" Nullable="false" />
           <Property Name="size" Type="int" Nullable="false" />
+          <Property Name="reserved" Type="int" />
         </EntityType>
         <EntityType Name="users">
           <Key>
@@ -193,6 +194,7 @@
           <NavigationProperty Name="orders" Relationship="FooDoModel.FK_orders_tables" FromRole="table" ToRole="order" />
           <NavigationProperty Name="tables1" Relationship="FooDoModel.FK_tables_tables" FromRole="table" ToRole="table1" />
           <NavigationProperty Name="table1" Relationship="FooDoModel.FK_tables_tables" FromRole="table1" ToRole="table" />
+          <Property Name="reserved" Type="Int32" />
           </EntityType>
         <EntityType Name="user">
           <Key>
@@ -354,7 +356,8 @@
     <EntitySetMapping Name="tables">
       <EntityTypeMapping TypeName="IsTypeOf(FooDoModel.table)">
         <MappingFragment StoreEntitySet="tables">
-          <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="reserved" ColumnName="reserved" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="positionX" ColumnName="positionX" />
           <ScalarProperty Name="positionY" ColumnName="positionY" />
           <ScalarProperty Name="number" ColumnName="number" />

@@ -53,10 +53,16 @@ namespace FooDo.Controllers
         {
             if (ModelState.IsValid)
             {
+            
+                table tableM = db.tables.Find(11);
+             
+                tableM.reserved = 1;
+             
                 db.orders.Add(order);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
 
             ViewBag.idUserOpen = new SelectList(db.users, "ID", "name", order.idUserOpen);
             ViewBag.idUserClose = new SelectList(db.users, "ID", "name", order.idUserClose);

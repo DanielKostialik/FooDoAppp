@@ -25,6 +25,7 @@ namespace FooDo2.Models
         public int positionY { get; set; }
         public int number { get; set; }
         public int size { get; set; }
+        public Nullable<int> reserved { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<order> orders { get; set; }

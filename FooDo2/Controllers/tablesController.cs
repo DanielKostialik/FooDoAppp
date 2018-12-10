@@ -27,12 +27,8 @@ namespace FooDo2.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            table table = db.tables.Find(id);
-            if (table == null)
-            {
-                return HttpNotFound();
-            }
-            return View(table);
+            var result = from c in db.orders where c.idTable == id select c;
+            return View(result.ToList());
         }
 
         // GET: tables/Create
