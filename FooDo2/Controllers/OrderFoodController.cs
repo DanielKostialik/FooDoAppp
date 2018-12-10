@@ -116,7 +116,7 @@ namespace FooDo.Controllers
         // GET: testtt/Create
         public ActionResult AddFood(int? id)
         {
-            ViewBag.idFood = new SelectList(db.foods, "ID", "name");
+            ViewBag.idFood = new SelectList(db.food, "ID", "name");
             ViewBag.idTest = id;
             return View();
         }
@@ -130,7 +130,7 @@ namespace FooDo.Controllers
         {
 
             // add food price to total price in order
-            food foodC = db.foods.Find(idFood);
+            food foodC = db.food.Find(idFood);
             order orderC = db.orders.Find(idOrder);
             orderC.totalPrice = orderC.totalPrice + foodC.price;
 
@@ -233,7 +233,7 @@ namespace FooDo.Controllers
             int idFood = oFood.idFood;
 
 
-            food foodC = db.foods.Find(idFood);
+            food foodC = db.food.Find(idFood);
             order orderC = db.orders.Find(idOrder);
             orderC.totalPrice = orderC.totalPrice - foodC.price;
 

@@ -5,16 +5,17 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="78d3d17a826a4f3f8332109653ac1903" Name="Diagram1">
-        <EntityTypeShape EntityType="FooDoModel.food" Width="1.5" PointX="7.5" PointY="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="FooDoModel.orderFood" Width="1.5" PointX="5.25" PointY="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="FooDoModel.order" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="FooDoModel.table" Width="1.5" PointX="3" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="FooDoModel.user" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
-        <AssociationConnector Association="FooDoModel.FK_OrderFood_food" ManuallyRouted="false" />
-        <AssociationConnector Association="FooDoModel.FK_OrderFood_orders" ManuallyRouted="false" />
         <AssociationConnector Association="FooDoModel.FK_orders_users" ManuallyRouted="false" />
         <AssociationConnector Association="FooDoModel.FK_orders_users1" ManuallyRouted="false" />
         <AssociationConnector Association="FooDoModel.FK_orders_tables" />
+        <AssociationConnector Association="FooDoModel.FK_tables_tables" />
+        <EntityTypeShape EntityType="FooDoModel.food" Width="1.5" PointX="3" PointY="8.625" />
+        <EntityTypeShape EntityType="FooDoModel.orderFood" Width="1.5" PointX="5.25" PointY="1.625" />
+        <AssociationConnector Association="FooDoModel.FK_OrderFood_food" />
+        <AssociationConnector Association="FooDoModel.FK_OrderFood_orders" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

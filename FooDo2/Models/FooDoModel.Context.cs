@@ -25,10 +25,10 @@ namespace FooDo2.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<food> foods { get; set; }
-        public virtual DbSet<orderFood> orderFoods { get; set; }
         public virtual DbSet<order> orders { get; set; }
         public virtual DbSet<table> tables { get; set; }
         public virtual DbSet<user> users { get; set; }
+        public virtual DbSet<food> food { get; set; }
+        public virtual DbSet<orderFood> orderFoods { get; set; }
     }
 }

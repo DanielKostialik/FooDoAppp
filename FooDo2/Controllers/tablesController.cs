@@ -1,112 +1,116 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Web;
 using System.Web.Mvc;
 using FooDo2.Models;
 
-
-namespace FooDo.Controllers
+namespace FooDo2.Controllers
 {
-    public class FoodController : Controller
+    public class TablesController : Controller
     {
         private QFoodDBEntitiesFooDo db = new QFoodDBEntitiesFooDo();
 
-        // GET: Food
+        // GET: tables
         public ActionResult Index()
         {
-            return View(db.food.ToList());
+            return View(db.tables.ToList());
         }
-        // GET: Food/Details/5
+
+        // GET: tables/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            food food = db.food.Find(id);
-            if (food == null)
+            table table = db.tables.Find(id);
+            if (table == null)
             {
                 return HttpNotFound();
             }
-            return View(food);
+            return View(table);
         }
 
-        // GET: Food/Create
+        // GET: tables/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Food/Create
+        // POST: tables/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,name,details,img,price")] food food)
+        public ActionResult Create([Bind(Include = "ID,positionX,positionY,number,size")] table table)
         {
             if (ModelState.IsValid)
             {
-                db.food.Add(food);
+                db.tables.Add(table);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(food);
+            return View(table);
         }
 
-        // GET: Food/Edit/5
+        // GET: tables/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            food food = db.food.Find(id);
-            if (food == null)
+            table table = db.tables.Find(id);
+            if (table == null)
             {
                 return HttpNotFound();
             }
-            return View(food);
+            return View(table);
         }
 
-        // POST: Food/Edit/5
+        // POST: tables/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,name,details,img,price")] food food)
+        public ActionResult Edit([Bind(Include = "ID,positionX,positionY,number,size")] table table)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(food).State = EntityState.Modified;
+                db.Entry(table).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(food);
+            return View(table);
         }
 
-        // GET: Food/Delete/5
+        // GET: tables/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            food food = db.food.Find(id);
-            if (food == null)
+            table table = db.tables.Find(id);
+            if (table == null)
             {
                 return HttpNotFound();
             }
-            return View(food);
+            return View(table);
         }
 
-        // POST: Food/Delete/5
+        // POST: tables/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            food food = db.food.Find(id);
-            db.food.Remove(food);
+            table table = db.tables.Find(id);
+            db.tables.Remove(table);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

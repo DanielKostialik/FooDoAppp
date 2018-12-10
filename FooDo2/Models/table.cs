@@ -28,5 +28,7 @@ namespace FooDo2.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<order> orders { get; set; }
+        public virtual table tables1 { get; set; }
+        public virtual table table1 { get; set; }
     }
 }
