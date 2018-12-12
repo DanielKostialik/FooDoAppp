@@ -1,18 +1,19 @@
 ﻿@model IEnumerable<FooDo2.Models.order>
-@{
-    Layout = "~/Views/Shared/orderLayout.cshtml";
-}
 
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/tableLayout.cshtml";
+}
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.ActionLink("Last Name", "Index", new { sortOrder = ViewBag.NameSortParm })
+            @Html.DisplayNameFor(model => model.idTable)
         </th>
         <th>
-            @Html.ActionLink("Date (opened)", "Index", new { sortOrder = ViewBag.DateSortParm })
+            @Html.DisplayNameFor(model => model.timeOpen)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.timeClose)
@@ -28,8 +29,6 @@
         </th>
         <th></th>
     </tr>
-
-
 
     @foreach (var item in Model)
     {
@@ -53,15 +52,9 @@
                 @Html.DisplayFor(modelItem => item.user1.name)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-                @Html.ActionLink("AddFood", "AddFood", new { id = item.ID })
-
+                @Html.ActionLink("Details", "Details", "OrderFood", new { id = item.ID },null)
             </td>
         </tr>
     }
 
 </table>
-
-xxxxxx

@@ -1,9 +1,7 @@
-﻿@model FooDo.Models.order
-
+﻿@model FooDo2.Models.order
 @{
     Layout = "~/Views/Shared/orderLayout.cshtml";
 }
-
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/jqueryval")
 
@@ -16,8 +14,6 @@
         <h4>order</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.ID)
-
         <div class="form-group">
             @Html.LabelFor(model => model.idTable, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -68,7 +64,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Create" class="btn btn-default" />
             </div>
         </div>
     </div>
@@ -77,4 +73,3 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
-

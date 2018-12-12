@@ -15,13 +15,13 @@ namespace FooDo2.Controllers
         private QFoodDBEntitiesFooDo db = new QFoodDBEntitiesFooDo();
 
         // GET: tables
-        public ActionResult Index()
+        public ActionResult TableIndex()
         {
             return View(db.tables.ToList());
         }
 
         // GET: tables/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult TableDetails(int? id)
         {
             if (id == null)
             {
